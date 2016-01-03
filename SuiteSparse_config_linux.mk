@@ -75,8 +75,8 @@ F77LIB =
 LIB = -lm
 
 # For "make install"
-INSTALL_LIB = /dick
-INSTALL_INCLUDE = /include
+INSTALL_LIB =
+INSTALL_INCLUDE =
 
 #------------------------------------------------------------------------------
 # BLAS and LAPACK configuration:
@@ -105,7 +105,7 @@ LAPACK = -llapack
 # includes a Fortran-callable xerbla routine that prints nothing and does not
 # stop the application program.  This is optional.
 
-XERBLA = ../../SuiteSparse_config/xerbla/libcerbla.a
+#XERBLA = ../../SuiteSparse_config/xerbla/libcerbla.a
 
 # If you wish to use the Fortran SuiteSparse_config/xerbla/xerbla.f instead,
 # use this:
