@@ -43,5 +43,5 @@ sed -i 's@^INSTALL_INCLUDE =.*$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-gcc-${G
 echo "INSTALL INCLUDE dir is : "
 grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 cd SuiteSparse
-make -j 2
+make 
 make library
