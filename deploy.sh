@@ -5,8 +5,13 @@
 module add deploy
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
-module add  lapack/3.6.0-gcc-${GCC_VERSION}
+module add lapack/3.6.0-gcc-${GCC_VERSION}
+echo "making the install and lib dirs"
+mkdir -p ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/include
+mkdir -p ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/lib
+echo "purging previous build config"
 echo ${SOFT_DIR}
+cp SuiteSparse_config_linux.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 # Set the install and lib dirs with SED
 # Since the variables have slashes (/) we need to use a different delimeter
 # see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s
@@ -17,7 +22,7 @@ grep INSTALL_LIB SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 sed -i "s@^INSTALL_INCLUDE =.*\$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/include@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 echo "INSTALL INCLUDE dir is : "
 grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-cd SuiteSparse
+cd ${WORKSPACE}/SuiteSparse
 make
 make library
 make install
