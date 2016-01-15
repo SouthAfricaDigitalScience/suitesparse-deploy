@@ -7,8 +7,6 @@ module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add  lapack/3.6.0-gcc-${GCC_VERSION}
 echo ${SOFT_DIR}
-module add deploy
-echo ${SOFT_DIR}
 # Set the install and lib dirs with SED
 # Since the variables have slashes (/) we need to use a different delimeter
 # see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s

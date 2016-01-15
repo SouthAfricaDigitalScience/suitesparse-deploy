@@ -3,7 +3,8 @@
 module add ci
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
-cd ${WORKSPACE}/${NAME}
+module add lapack/3.6.0-gcc-${GCC_VERSION}
+cd ${WORKSPACE}/SuiteSparse
 make install
 mkdir -p ${REPO_DIR}
 mkdir -p modules
