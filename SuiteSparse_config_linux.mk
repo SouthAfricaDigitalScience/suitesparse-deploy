@@ -52,7 +52,7 @@ CXX = mpicxx
 # If OpenMP is used, it is recommended to define CHOLMOD_OMP_NUM_THREADS
 # as the number of cores per socket on the machine being used to maximize
 # memory performance
-CFLAGS = -fPIC -openmp
+CFLAGS = -fPIC -fopenmp
 # BLAS = -lgoto64 -lfrtbegin -lg2c -lpthread $(XERBLA)
 # LAPACK = -llapack64
 
@@ -113,7 +113,7 @@ LAPACK = -llapack
 # use this:
 
 # XERBLA = ../../SuiteSparse_config/xerbla/libxerbla.a
-XERBLA = 
+#XERBLA =
 #------------------------------------------------------------------------------
 # GPU configuration for CHOLMOD and SPQR
 #------------------------------------------------------------------------------
