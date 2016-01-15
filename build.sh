@@ -4,6 +4,7 @@
 module add ci
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+module add lapack/3.6.0-gcc-${GCC_VERSION}
 SOURCE_FILE=${NAME}-${VERSION}.tar.gz
 
 mkdir -p $WORKSPACE
@@ -43,5 +44,5 @@ sed -i 's@^INSTALL_INCLUDE =.*$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-gcc-${G
 echo "INSTALL INCLUDE dir is : "
 grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 cd SuiteSparse
-make 
+make
 make library

@@ -3,10 +3,10 @@
 . /etc/profile.d/modules.sh
 # SuiteSparse build script
 . /etc/profile.d/modules.sh
-module add ci
+module add deploy
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
-
+module add  lapack/3.6.0-gcc-${GCC_VERSION}
 echo ${SOFT_DIR}
 module add deploy
 echo ${SOFT_DIR}
@@ -21,6 +21,9 @@ sed -i 's@^INSTALL_INCLUDE =.*$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-gcc-${G
 echo "INSTALL INCLUDE dir is : "
 grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 cd SuiteSparse
+make
+make library
+make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
 mkdir -p ${LIBRARIES_MODULES}/${NAME}
 (

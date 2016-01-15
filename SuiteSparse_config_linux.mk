@@ -44,19 +44,21 @@
 # Using standard definitions from the make environment, typically:
 #
 #   CC              cc      C compiler
-	CC = mpicc
+CC = mpicc
 #   CXX             g++     C++ compiler
-	CXX = mpicxx
+CXX = mpicxx
 
 # To use OpenMP add -openmp to the CFLAGS
 # If OpenMP is used, it is recommended to define CHOLMOD_OMP_NUM_THREADS
 # as the number of cores per socket on the machine being used to maximize
 # memory performance
-  CFLAGS = -fPIC -openmp
+CFLAGS = -fPIC -openmp
+# BLAS = -lgoto64 -lfrtbegin -lg2c -lpthread $(XERBLA)
+# LAPACK = -llapack64
 
 # C and C++ compiler flags.  The first three are standard for *.c and *.cpp
 # Add -DNTIMER if you do use any timing routines (otherwise -lrt is required).
-  CF = $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -O3 -fexceptions -fPIC
+CF = $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -O3 -fexceptions -fPIC -m64
 
 # ranlib, and ar, for generating libraries.  If you don't need ranlib,
 # just change it to RANLAB = echo
@@ -68,7 +70,7 @@ MV = mv -f
 
 # Fortran compiler (not required for 'make' or 'make library')
 F77=mpif90
-F77FLAGS = $(FFLAGS) -O
+F77FLAGS = $(FFLAGS) -O -m64
 F77LIB =
 
 # C and Fortran libraries.  Remove -lrt if you don't have it.
@@ -95,7 +97,7 @@ INSTALL_INCLUDE =
 # naming the BLAS and LAPACK library (*.a or *.so) files.
 
 # This is probably slow ... it might connect to the Standard Reference BLAS:
-BLAS = -lblas -lgfortran
+BLAS = -lblas -lgfortran  -lg2c -lpthread $(XERBLA)
 LAPACK = -llapack
 
 # The BLAS might not contain xerbla, an error-handling routine for LAPACK and
@@ -111,7 +113,7 @@ LAPACK = -llapack
 # use this:
 
 # XERBLA = ../../SuiteSparse_config/xerbla/libxerbla.a
-
+XERBLA = 
 #------------------------------------------------------------------------------
 # GPU configuration for CHOLMOD and SPQR
 #------------------------------------------------------------------------------
