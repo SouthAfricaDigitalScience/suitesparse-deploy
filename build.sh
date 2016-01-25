@@ -7,7 +7,7 @@ module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
 SOURCE_FILE=${NAME}-${VERSION}.tar.gz
-METIS="metis-5.1.0.tar.gz"
+METIS="metis-4.0.3.tar.gz"
 
 mkdir -p $WORKSPACE
 mkdir -p $SRC_DIR
