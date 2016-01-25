@@ -143,8 +143,8 @@ LAPACK = -llapack
 # The path is relative to where it is used, in CHOLMOD/Lib, CHOLMOD/MATLAB, etc.
 # You may wish to use an absolute path.  METIS is optional.  Compile
 # CHOLMOD with -DNPARTITION if you do not wish to use METIS.
-METIS_PATH = ../../metis-4.0
-METIS = ../../metis-4.0/libmetis.a
+METIS_PATH = ../../metis-5.1.0
+METIS = ../../metis-5.1.0/libmetis.a
 
 #------------------------------------------------------------------------------
 # UMFPACK configuration:
@@ -162,7 +162,7 @@ METIS = ../../metis-4.0/libmetis.a
 #               included in UMFPACK_CONFIG, then UMFPACK  does not rely on
 #               CHOLMOD, CAMD, CCOLAMD, COLAMD, and METIS.
 
-UMFPACK_CONFIG =
+UMFPACK_CONFIG = 
 
 # uncomment this line to compile UMFPACK without CHOLMOD:
 # UMFPACK_CONFIG = -DNCHOLMOD

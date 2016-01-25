@@ -22,7 +22,8 @@ grep INSTALL_LIB SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 sed -i "s@^INSTALL_INCLUDE =.*\$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/include@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 echo "INSTALL INCLUDE dir is : "
 grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-cd ${WORKSPACE}/SuiteSparse
+cd ${WORKSPACE}/SuiteSparse/
+echo ""
 make
 make library
 make install
