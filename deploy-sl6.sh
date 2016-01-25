@@ -11,7 +11,7 @@ mkdir -p ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/includ
 mkdir -p ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/lib
 echo "purging previous build config"
 echo ${SOFT_DIR}
-cp SuiteSparse_config_linux.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
+cp SuiteSparse_config_linux-${OS}.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 # Set the install and lib dirs with SED
 # Since the variables have slashes (/) we need to use a different delimeter
 # see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s
