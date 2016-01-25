@@ -3,6 +3,7 @@
 . /etc/profile.d/modules.sh
 
 module add deploy
+module add cmake
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
