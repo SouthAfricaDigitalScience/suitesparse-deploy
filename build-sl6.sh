@@ -2,7 +2,6 @@
 # SuiteSparse build script
 . /etc/profile.d/modules.sh
 module add ci
-module add cmake
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
@@ -55,7 +54,7 @@ tar xfz ${SRC_DIR}/${METIS} -C ${WORKSPACE}/SuiteSparse --skip-old-files
 # SuiteSparse does not support autotools.
 # there is no configuration, only a custom Make configuration file.
 # This needs to be put into the workspace
-cp SuiteSparse_config_linux.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
+cp SuiteSparse_config_linux-${OS}.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 # Set the install and lib dirs with SED
 # Since the variables have slashes (/) we need to use a different delimeter
 # see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s
