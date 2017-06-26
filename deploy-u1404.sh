@@ -6,6 +6,7 @@ module add deploy
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
+
 echo "making the install and lib dirs"
 mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include
 mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib
@@ -27,8 +28,8 @@ echo ""
 make
 make library
 make install
-echo "Creating the modules file directory ${LIBRARIES_MODULES}"
-mkdir -p ${LIBRARIES_MODULES}/${NAME}
+echo "Creating the modules file directory ${LIBRARIES}"
+mkdir -p ${LIBRARIES}/${NAME}
 (
 cat <<MODULE_FILE
 #%Module1.0
@@ -47,5 +48,5 @@ prepend-path CFLAGS            $::env(SUITESPARSE_DIR)/include
 MODULE_FILE
 ) > modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
-mkdir -p ${LIBRARIES_MODULES}/${NAME}
-cp modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES_MODULES}/${NAME}/
+mkdir -p ${LIBRARIES}/${NAME}
+cp modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES}/${NAME}/
