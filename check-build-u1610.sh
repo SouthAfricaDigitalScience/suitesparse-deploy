@@ -6,7 +6,7 @@ module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
 cd ${WORKSPACE}/SuiteSparse
 make install
-mkdir -p ${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+mkdir -p ${REPO_DIR}
 mkdir -p modules
 (
 cat <<MODULE_FILE
@@ -24,7 +24,7 @@ setenv       SUITESPARSE_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$:
 prepend-path LD_LIBRARY_PATH   $::env(SUITESPARSE_DIR)/lib
 prepend-path CFLAGS            $::env(SUITESPARSE_DIR)/include
 MODULE_FILE
-) > modules/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+) > modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
 mkdir -p ${LIBRARIES}/${NAME}
-cp modules/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES}/${NAME}/
+cp modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES}/${NAME}/

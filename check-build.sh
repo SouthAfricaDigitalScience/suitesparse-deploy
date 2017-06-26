@@ -20,11 +20,11 @@ proc ModulesHelp { } {
 
 module-whatis   "$NAME $VERSION."
 setenv       SUITESPARSE_VERSION       $VERSION
-setenv       SUITESPARSE_DIR           /apprepo/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
+setenv       SUITESPARSE_DIR           /apprepo/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 prepend-path LD_LIBRARY_PATH   $::env(SUITESPARSE_DIR)/lib
 prepend-path CFLAGS            $::env(SUITESPARSE_DIR)/include
 MODULE_FILE
-) > modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
+) > modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
 mkdir -p ${LIBRARIES_MODULES}/${NAME}
-cp modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} ${LIBRARIES_MODULES}/${NAME}/
+cp modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES_MODULES}/${NAME}/

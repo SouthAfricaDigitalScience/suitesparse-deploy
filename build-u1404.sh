@@ -58,17 +58,17 @@ cp SuiteSparse_config_linux-${OS}.mk SuiteSparse/SuiteSparse_config/SuiteSparse_
 # Set the install and lib dirs with SED
 # Since the variables have slashes (/) we need to use a different delimeter
 # see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s
-sed -i "s@^INSTALL_LIB =.*\$@INSTALL_LIB = ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/lib@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
+sed -i "s@^INSTALL_LIB =.*\$@INSTALL_LIB = ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 echo "INSTALL LIB dir is : "
 grep INSTALL_LIB SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 
-sed -i "s@^INSTALL_INCLUDE =.*\$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/include@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
+sed -i "s@^INSTALL_INCLUDE =.*\$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 echo "INSTALL INCLUDE dir is : "
 grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 # now you need to check where metis is
 echo "making the install and lib dirs"
-mkdir -p ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/include
-mkdir -p ${SOFT_DIR}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}/lib
+mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include
+mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib
 cd SuiteSparse
 make
 make library
