@@ -74,7 +74,7 @@ F77FLAGS = $(FFLAGS) -O -m64
 F77LIB =
 
 # C and Fortran libraries.  Remove -lrt if you don't have it.
-LIB = -L${LAPACK_DIR}/lib64 -llapack -lblas -lm
+LIB = "-L${LAPACK_DIR}/lib64 -llapack -lblas -lm"
 
 # For "make install"
 INSTALL_LIB =
@@ -98,7 +98,7 @@ INSTALL_INCLUDE =
 
 # This is probably slow ... it might connect to the Standard Reference BLAS:
 BLAS = -lblas -lgfortran  #-lg2c -lpthread $(XERBLA)
-LAPACK = -llapack
+LAPACK = "-L${LAPACK_DIR}/lib64 -llapack"
 
 # The BLAS might not contain xerbla, an error-handling routine for LAPACK and
 # the BLAS.  Also, the standard xerbla requires the Fortran I/O library, and
