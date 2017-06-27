@@ -74,7 +74,7 @@ F77FLAGS = $(FFLAGS) -O -m64
 F77LIB =
 
 # C and Fortran libraries.  Remove -lrt if you don't have it.
-LIB = -L${LAPACK_DIR}/lib64 -lm
+LIB = -L${LAPACK_DIR}/lib64 -llapack -lm
 
 # For "make install"
 INSTALL_LIB =
