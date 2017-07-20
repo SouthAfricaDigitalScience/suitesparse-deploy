@@ -6,8 +6,8 @@ module add gcc/${GCC_VERSION}
 module add cmake
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
+module  add openblas/0.2.19-gcc-${GCC_VERSION}
 SOURCE_FILE=${NAME}-${VERSION}.tar.gz
-METIS="metis-4.0.3.tar.gz"
 
 mkdir -p $WORKSPACE
 mkdir -p $SRC_DIR
@@ -33,43 +33,9 @@ fi
 
 # get metis
 
-if [ ! -e ${SRC_DIR}/${METIS}.lock ] && [ ! -s ${SRC_DIR}/${METIS} ] ; then
-  touch  ${SRC_DIR}/${METIS}.lock
-  echo "seems like this is the first build - let's get the source"
-  wget http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${METIS} -O ${SRC_DIR}/${METIS}
-  echo "releasing lock"
-  rm -v ${SRC_DIR}/${METIS}.lock
-elif [ -e ${SRC_DIR}/${METIS}.lock ] ; then
-  # Someone else has the file, wait till it's released
-  while [ -e ${SRC_DIR}/${METIS}.lock ] ; do
-    echo " There seems to be a download currently under way, will check again in 5 sec"
-    sleep 5
-  done
-else
-  echo "continuing from previous builds, using source at " ${SRC_DIR}/${METIS}
-fi
-
-
 tar xzf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
-tar xfz ${SRC_DIR}/${METIS} -C ${WORKSPACE}/SuiteSparse --skip-old-files
-# SuiteSparse does not support autotools.
-# there is no configuration, only a custom Make configuration file.
-# This needs to be put into the workspace
-cp SuiteSparse_config_linux-${OS}.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-# Set the install and lib dirs with SED
-# Since the variables have slashes (/) we need to use a different delimeter
-# see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s
-sed -i "s@^INSTALL_LIB =.*\$@INSTALL_LIB = ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-echo "INSTALL LIB dir is : "
-grep INSTALL_LIB SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-
-sed -i "s@^INSTALL_INCLUDE =.*\$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-echo "INSTALL INCLUDE dir is : "
-grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-# now you need to check where metis is
-echo "making the install and lib dirs"
-mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include
-mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib
 cd SuiteSparse
+make config
+
+BLAS="-L${OPENBLAS_DIR}/lib/libopenblas.so" LAPACK="${LAPACK_DIR}/lib/liblapack.so.3" make library
 make
-make library
