@@ -4,6 +4,7 @@
 
 module add deploy
 module add gcc/${GCC_VERSION}
+module add cmake
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
 echo "making the install and lib dirs"
