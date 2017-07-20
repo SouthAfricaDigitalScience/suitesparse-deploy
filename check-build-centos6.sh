@@ -5,9 +5,11 @@ module add gcc/${GCC_VERSION}
 module add cmake
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
+module  add openblas/0.2.19-gcc-${GCC_VERSION}
+
 cd ${WORKSPACE}/SuiteSparse
-make install
 mkdir -p ${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
 mkdir -p modules
 (
 cat <<MODULE_FILE
@@ -29,3 +31,6 @@ MODULE_FILE
 
 mkdir -p ${LIBRARIES}/${NAME}
 cp modules/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES}/${NAME}/
+
+module avail ${NAME}
+module add ${NAME}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
