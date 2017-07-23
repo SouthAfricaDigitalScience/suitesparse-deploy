@@ -15,7 +15,7 @@ echo ${SOFT_DIR}
 cd ${WORKSPACE}/SuiteSparse/
 echo ""
 make distclean
-BLAS="-L${OPENBLAS_DIR}/lib/libopenblas.so" LAPACK="${LAPACK_DIR}/lib/liblapack.so.3" make library
+BLAS="-L${OPENBLAS_DIR}/lib/libopenblas.so" LAPACK="${LAPACK_DIR}/lib64/liblapack.so.3" make library
 make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
 echo "Creating the modules file directory ${LIBRARIES}"
 mkdir -p ${LIBRARIES}/${NAME}

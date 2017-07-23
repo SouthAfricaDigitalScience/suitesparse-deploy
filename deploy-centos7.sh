@@ -7,27 +7,16 @@ module add gcc/${GCC_VERSION}
 module add cmake
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
+module add  openblas/0.2.19-gcc-${GCC_VERSION}
 echo "making the install and lib dirs"
-mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include
-mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib
+mkdir -p ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 echo "purging previous build config"
 echo ${SOFT_DIR}
-cp SuiteSparse_config_linux-${OS}.mk SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-# Set the install and lib dirs with SED
-# Since the variables have slashes (/) we need to use a different delimeter
-# see http://stackoverflow.com/questions/9366816/sed-unknown-option-to-s
-sed -i "s@^INSTALL_LIB =.*\$@INSTALL_LIB = ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/lib@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-echo "INSTALL LIB dir is : "
-grep INSTALL_LIB SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-
-sed -i "s@^INSTALL_INCLUDE =.*\$@INSTALL_INCLUDE = ${SOFT_DIR}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}/include@g" SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
-echo "INSTALL INCLUDE dir is : "
-grep INSTALL_INCLUDE SuiteSparse/SuiteSparse_config/SuiteSparse_config.mk
 cd ${WORKSPACE}/SuiteSparse/
 echo ""
-make
-make library
-make install
+make distclean
+BLAS="-L${OPENBLAS_DIR}/lib/libopenblas.so" LAPACK="${LAPACK_DIR}/lib64/liblapack.so.3" make library
+make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
 echo "Creating the modules file directory ${LIBRARIES}"
 mkdir -p ${LIBRARIES}/${NAME}
 (
