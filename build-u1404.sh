@@ -37,5 +37,5 @@ tar xzf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 cd SuiteSparse
 make config
 
-BLAS="${OPENBLAS_DIR}/lib/libopenblas.so" LAPACK="${LAPACK_DIR}/lib/liblapack.so.3" make library
+BLAS="-L${OPENBLAS_DIR}/lib/ -lopenblas" LAPACK="-L${LAPACK_DIR}/lib/ -llapack" make library
 make
