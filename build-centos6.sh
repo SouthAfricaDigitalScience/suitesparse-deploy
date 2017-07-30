@@ -34,8 +34,10 @@ fi
 # get metis
 
 tar xzf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
-cd SuiteSparse
+cd ${WORKSPACE}/SuiteSparse
 make config
-
-BLAS="-L${OPENBLAS_DIR}/lib/libopenblas.so" LAPACK="${LAPACK_DIR}/lib64/liblapack.so.3" make library
-make
+export LDFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64"
+export BLAS="-lopenblas" LAPACK="-llapack -lopenblas"
+make library
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LAPACK_DIR/lib64"
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make
