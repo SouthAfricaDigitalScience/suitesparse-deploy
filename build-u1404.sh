@@ -37,5 +37,7 @@ tar xzf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 cd SuiteSparse
 make config
 export LDFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib"
-export BLAS="-lopenblas" LAPACK="-llapack"
+export BLAS="-lopenblas" LAPACK="-llapack -lopenblas"
 make library
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LAPACK_DIR/lib"
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib" make

@@ -6,7 +6,8 @@ module add cmake
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 module add lapack/3.6.0-gcc-${GCC_VERSION}
 cd ${WORKSPACE}/SuiteSparse
-make install
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib" make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}" make install
+
 mkdir -p ${REPO_DIR}
 mkdir -p modules
 (
