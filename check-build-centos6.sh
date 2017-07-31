@@ -9,7 +9,10 @@ module  add openblas/0.2.19-gcc-${GCC_VERSION}
 
 cd ${WORKSPACE}/SuiteSparse
 mkdir -p ${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
-make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
+export LDFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64"
+export BLAS="-lopenblas" LAPACK="-llapack -lopenblas"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LAPACK_DIR/lib64"
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
 mkdir -p modules
 (
 cat <<MODULE_FILE
