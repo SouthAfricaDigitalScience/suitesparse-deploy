@@ -10,7 +10,7 @@ module  add openblas/0.2.19-gcc-${GCC_VERSION}
 cd ${WORKSPACE}/SuiteSparse
 export LDFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64"
 export BLAS="-lopenblas" LAPACK="-llapack -lopenblas"
-CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make install  INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make install  INSTALL="${SOFT_DIR}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}"
 mkdir -p ${REPO_DIR}
 mkdir -p modules
 (
@@ -25,11 +25,13 @@ proc ModulesHelp { } {
 
 module-whatis   "$NAME $VERSION."
 setenv       SUITESPARSE_VERSION       $VERSION
-setenv       SUITESPARSE_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+setenv       SUITESPARSE_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 prepend-path LD_LIBRARY_PATH   $::env(SUITESPARSE_DIR)/lib
-prepend-path CFLAGS            $::env(SUITESPARSE_DIR)/include
+setenv      CFLAGS            "$CFLAGS -I$::env(SUITESPARSE_DIR)/include"
 MODULE_FILE
-) > modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+) > modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 
 mkdir -p ${LIBRARIES}/${NAME}
-cp modules/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES}/${NAME}/
+cp modules/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} ${LIBRARIES}/${NAME}/
+module avail ${NAME}
+module  add ${NAME}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}

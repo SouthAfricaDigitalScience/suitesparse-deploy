@@ -21,6 +21,8 @@ make library
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LAPACK_DIR/lib64"
 CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make
 
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make install INSTALL="${SOFT_DIR}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}"
+
 echo "Creating the modules file directory ${LIBRARIES}"
 mkdir -p ${LIBRARIES}/${NAME}
 (
@@ -35,14 +37,14 @@ proc ModulesHelp { } {
 
 module-whatis   "$NAME $VERSION."
 setenv       SUITESPARSE_VERSION       $VERSION
-setenv       SUITESPARSE_DIR           $::env(CVMFS_DIR)/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+setenv       SUITESPARSE_DIR           $::env(CVMFS_DIR)/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 prepend-path LD_LIBRARY_PATH   $::env(SUITESPARSE_DIR)/lib
-prepend-path CFLAGS            $::env(SUITESPARSE_DIR)/include
+setenv CFLAGS            "$CFLAGS -I$::env(SUITESPARSE_DIR)/include"
 MODULE_FILE
-) > modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+) > modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 
 mkdir -p ${LIBRARIES}/${NAME}
-cp modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION} ${LIBRARIES}/${NAME}/
+cp modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} ${LIBRARIES}/${NAME}/
 
 module avail ${NAME}
 module add ${NAME}/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}

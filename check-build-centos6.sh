@@ -12,7 +12,7 @@ mkdir -p ${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 export LDFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64"
 export BLAS="-lopenblas" LAPACK="-llapack -lopenblas"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LAPACK_DIR/lib64"
-CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make install INSTALL="${SOFT_DIR}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}"
+CFLAGS="-L${OPENBLAS_DIR}/lib -L${LAPACK_DIR}/lib64" make install INSTALL="${SOFT_DIR}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}"
 mkdir -p modules
 (
 cat <<MODULE_FILE
@@ -26,9 +26,9 @@ proc ModulesHelp { } {
 
 module-whatis   "$NAME $VERSION."
 setenv       SUITESPARSE_VERSION       $VERSION
-setenv       SUITESPARSE_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+setenv       SUITESPARSE_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 prepend-path LD_LIBRARY_PATH   $::env(SUITESPARSE_DIR)/lib
-prepend-path CFLAGS            $::env(SUITESPARSE_DIR)/include
+setenv CFLAGS            "$CFLAGS -I$::env(SUITESPARSE_DIR)/include"
 MODULE_FILE
 ) > modules/${VERSION}-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
