@@ -1,0 +1,23 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "http://orcid.org/0000-0002-6607-7145",
+      "@type": "Person",
+      "email": "bbecker@csir.co.za",
+      "name": "Bruce Becker",
+      "affiliation": "C.S.I.R. Meraka Institute"
+    }
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/SouthAfricaDigitalScience/suitesparse-deploy",
+  "datePublished": "2017-08-02",
+  "dateModified": "2017-08-02",
+  "dateCreated": "2017-08-02",
+  "description": "Build, test and deploy scripts for SuiteSparse library in CODE-RADE",
+  "keywords": "sparse, matrices, CODE-RADE",
+  "license": "Apache 2.0",
+  "title": "SuiteSparse Deploy",
+  "version": "v0.0.1-fr3"
+}
