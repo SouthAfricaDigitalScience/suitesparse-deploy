@@ -29,7 +29,7 @@ setenv       SUITESPARSE_DIR           /apprepo/$::env(SITE)/$::env(OS)/$::env(A
 prepend-path LD_LIBRARY_PATH   $::env(SUITESPARSE_DIR)/lib
 setenv CFLAGS            "$CFLAGS -I$::env(SUITESPARSE_DIR)/include"
 MODULE_FILE
-) > modules/$VERSION-mpi-${OPENMPI_VERSION}-gcc-${GCC_VERSION}
+) > modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 
 mkdir -p ${LIBRARIES}/${NAME}
 cp modules/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} ${LIBRARIES}/${NAME}/
